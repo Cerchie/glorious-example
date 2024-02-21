@@ -1,0 +1,7 @@
+{
+  "type": "module",
+  "dependencies": {
+    "@glorious/demo": "^0.12.0",
+    "prismjs": "^1.29.0"
+  }
+}

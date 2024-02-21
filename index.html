@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kafka Streams Topology</title>
+</head>
+<body>
+    <body>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glorious/demo/dist/gdemo.min.css" />
+    
+        <div id="container"></div>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-funky.css">
+        <script src="https://cdn.jsdelivr.net/npm/@glorious/demo/dist/gdemo.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/prismjs"></script>
+        <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-java.js"></script>
+        <script type="text/javascript">
+
+
+
+        const demo = new GDemo('#container');
+
+const code = `
+builder.stream(INPUT_TOPIC, Consumed.with(Serdes.String(), jsonNodeSerde))
+                .peek((key, value) -> LOG.info("Incoming key[{}] value[{}]", key, value))
+                .mapValues(valueMapper)
+                .process(new MyProcessorSupplier())
+                .peek((key, value) -> LOG.info("Outgoing value key[{}] value[{}]", key, value))
+                .to(OUTPUT_TOPIC, Produced.with(Serdes.String(), prStateCounterSerde));
+`
+
+const highlightedCode = Prism.highlight(
+  code,
+  Prism.languages.java,
+  'java'
+);
+
+demo
+  .openApp('editor', {minHeight: '350px', windowTitle: 'demo.js'})
+  .write(highlightedCode, {onCompleteDelay: 1500})
+  .end();
+        </script>
+      </body>
+</body>
+<link rel="stylesheet" href="node_modules/@glorious/demo/dist/gdemo.min.css">
+
+</html>
